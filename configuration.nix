@@ -79,6 +79,14 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
+      kdePackages.kcalc
+      pkgs.btrfs-assistant
+      pkgs.mpv
+      pkgs.fastfetch
+      pkgs.htop
+      pkgs.btop
+      pkgs.nvtopPackages.full
+      pgadmin4
     #  thunderbird
     ];
   };
@@ -106,12 +114,33 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
-    emacs # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    emacs
+    btrfs-progs
+    distrobox
+    pandoc
+    direnv
+    #devenv
+    postgresql
+    lm_sensors
+    fwupd
+    ledger
+    texliveFull
+    python313Full
+    python313Packages.pip
+    rustup
+    gcc
+    jdk
+    beam27Packages.erlang
+    beam27Packages.elixir
+    clojure
+    nodejs_22
+    typescript
   ];
 
-  # Set the default editor to emacs
-  environment.variables.EDITOR = "emacs";
+  # Set the default editor to neovim
+  environment.variables.EDITOR = "neovim";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

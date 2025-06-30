@@ -7,7 +7,7 @@
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
-    # .nixos is the hostname
+    # nixos is the hostname
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -21,6 +21,14 @@
         {
           services.flatpak.enable = true;
         }
+	{
+          config.services.postgresql = {
+	    enable = true;
+	  };
+        }
+	{
+	  services.fwupd.enable = true;
+	}
       ];
     };
   };
