@@ -11,8 +11,11 @@
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    systemd-boot.configurationLimit = 10; # You should set this so generations are referenced, which avoids them being gc'd
+    efi.canTouchEfiVariables = true;
+  };
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -26,6 +29,10 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # Power management
+  powerManagement.enable = true;
+  services.power-profiles-daemon.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Mazatlan";
@@ -75,19 +82,19 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.gbm = {
     isNormalUser = true;
-    description = "GBM";
+    description = "gbm";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
-      kdePackages.kcalc
-      pkgs.btrfs-assistant
-      pkgs.mpv
-      pkgs.fastfetch
-      pkgs.htop
-      pkgs.btop
-      pkgs.nvtopPackages.full
-      pgadmin4
-    #  thunderbird
+      # kdePackages.kcalc
+      # pkgs.btrfs-assistant
+      # pkgs.mpv
+      # pkgs.fastfetch
+      # pkgs.htop
+      # pkgs.btop
+      # pkgs.nvtopPackages.full
+      # pgadmin4
+      # thunderbird
     ];
   };
 
@@ -98,13 +105,17 @@
   nixpkgs.config.allowUnfree = true;
 
   # Optimise nix store during every build
-  nix.settings.auto-optimise-store = true;
+  nix.settings = {
+    auto-optimise-store = true;
+    # experimental-features = [ "nix-command" "flakes" ];
+  };
+  # nix.settings.auto-optimise-store = true;
 
-  # Garbage collection automation
+  #Garbage collection automation
   nix.gc = {
-  automatic = true;
-  dates = "weekly";
-  options = "--delete-older-than 7d";
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
   };
 
   # Enable Flakes
@@ -113,30 +124,33 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    git
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    git
     emacs
-    btrfs-progs
-    distrobox
-    pandoc
-    direnv
-    #devenv
-    postgresql
-    lm_sensors
-    fwupd
-    ledger
-    texliveFull
-    python313Full
-    python313Packages.pip
-    rustup
-    gcc
-    jdk
-    beam27Packages.erlang
-    beam27Packages.elixir
-    clojure
-    nodejs_22
-    typescript
+    
+    # I'll check later how I want to install these
+    # btrfs-progs
+    # distrobox
+    # pandoc
+    # direnv
+    # #devenv
+    # postgresql
+    # lm_sensors
+    # fwupd
+    # ledger
+    # texliveFull
+    # python313Full
+    # python313Packages.pip
+    # rustup
+    # gcc
+    # jdk
+    # beam27Packages.erlang
+    # beam27Packages.elixir
+    # clojure
+    # nodejs_22
+    # typescript
+    # flatpak
   ];
 
   # Set the default editor to neovim
@@ -145,15 +159,19 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+
+  # Enable gpg
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -167,6 +185,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 
 }

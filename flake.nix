@@ -2,33 +2,27 @@
   description = "NixOS flake";
 
   inputs = {
-    # nixos-25.05 branch
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # nixos-25.11 branch
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = inputs@{ self, nixpkgs, ... }: {
     # nixos is the hostname
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      modules = [
-        ./configuration.nix
-        {
-          programs.git = {
-            enable = true;
-            lfs.enable = true;
+      modules =
+      [
+      ./configuration.nix
+      {
+          nix = {
+            settings.experimental-features = [ "nix-command" "flakes" ];
           };
-        }
-        {
-          services.flatpak.enable = true;
-        }
-	{
-          config.services.postgresql = {
-	    enable = true;
-	  };
-        }
-	{
-	  services.fwupd.enable = true;
-	}
+      }
+
+      ./git.nix
+
+      ./emacs.nix
+
       ];
     };
   };
