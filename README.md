@@ -1,8 +1,9 @@
 # NixOS config
-My NixOS config files.
+My NixOS configuration files.
 
 ## Description
-This repository contains the config files I use for my experimental NixOS system. As a beginner, this config files are not as optimized as they could be; nevertheless, maybe you will find some use to them.
+This repository contains the configuration files I use for my experimental NixOS system.  
+As a beginner, the configuration used in this repository is not as optimized as it could be; nevertheless, maybe you will find some use to it.
 
 ## License
 SPDX-License-Identifier: GPL-3.0-or-later

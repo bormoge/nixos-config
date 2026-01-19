@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -111,12 +111,34 @@
   };
   # nix.settings.auto-optimise-store = true;
 
-  #Garbage collection automation
+  # Garbage collection automation
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--print-build-logs"
+    ];
+    dates = "Sun 16:00";
+    randomizedDelaySec = "45min";
+    allowReboot = true;
+    rebootWindow = {
+      lower = "16:00";
+      upper = "19:00";
+    };
+  };
+
+  # Limiting the maximum number of running jobs
+  # nix = {
+  #   settings = {
+  #     max-jobs = 8;
+  #   };
+  # };
 
   # Enable Flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -124,34 +146,42 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    neovim
     wget
     git
     emacs
+    flatpak
+    nixd
+    gcc
+    # Discount is a Markdown implementation
+    discount
+    pandoc
     
-    # I'll check later how I want to install these
+    # I'll check later how (if) I want to install these packages
     # btrfs-progs
     # distrobox
-    # pandoc
     # direnv
     # #devenv
     # postgresql
-    # lm_sensors
     # fwupd
     # ledger
     # texliveFull
     # python313Full
     # python313Packages.pip
     # rustup
-    # gcc
     # jdk
     # beam27Packages.erlang
     # beam27Packages.elixir
     # clojure
     # nodejs_22
     # typescript
-    # flatpak
   ];
+
+  # Enable flatpaks
+  services.flatpak = {
+    enable = true;
+  };
 
   # Set the default editor to neovim
   environment.variables.EDITOR = "neovim";
