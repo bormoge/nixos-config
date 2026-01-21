@@ -150,21 +150,22 @@
     neovim
     wget
     git
-    emacs
+    # Emacs compiled using gtk flags
+    emacs-pgtk
     flatpak
     nixd
     gcc
     # Discount is a Markdown implementation
-    discount
+    # discount
     pandoc
+    distrobox
+    fwupd
     
     # I'll check later how (if) I want to install these packages
     # btrfs-progs
-    # distrobox
     # direnv
     # #devenv
     # postgresql
-    # fwupd
     # ledger
     # texliveFull
     # python313Full
@@ -176,12 +177,8 @@
     # clojure
     # nodejs_22
     # typescript
+    # gnumake
   ];
-
-  # Enable flatpaks
-  services.flatpak = {
-    enable = true;
-  };
 
   # Set the default editor to neovim
   environment.variables.EDITOR = "neovim";
@@ -190,18 +187,24 @@
   # started in user sessions.
   # programs.mtr.enable = true;
 
-  # Enable gpg
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
   };
+
+  # Enable flatpaks
+  services.flatpak = {
+    enable = true;
+  };
+
+  # Enable gpg
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
