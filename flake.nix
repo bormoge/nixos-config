@@ -43,7 +43,13 @@
 # nix store optimise                                        # Optimize disk space usage
 # nixos-version                                             # Check NixOS version
 
-## Check autoupgrade service
+## Check autoupgrade service(s)
 # systemctl status nixos-upgrade.timer
 # systemctl status nixos-upgrade.service
 # journalctl -u nixos-upgrade.service
+# journalctl -u nixos-upgrade.service > nixos-upgrade.txt
+
+# systemctl status nix-gc.service
+# systemctl status nix-gc.timer
+# journalctl -u nix-gc.service
+# journalctl -u nix-gc.service > nix-gc.txt

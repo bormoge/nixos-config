@@ -114,13 +114,16 @@
   # Garbage collection automation
   nix.gc = {
     automatic = true;
-    dates = "weekly";
+    persistent = true;
+    dates = "Sun 14:00";
+    randomizedDelaySec = "45min";
     options = "--delete-older-than 7d";
   };
 
   system.autoUpgrade = {
     enable = true;
     flake = inputs.self.outPath;
+    persistent = true;
     flags = [
       "--print-build-logs"
     ];
