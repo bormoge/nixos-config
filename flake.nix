@@ -44,6 +44,8 @@
 # nixos-version                                             # Check NixOS version
 
 ## Check autoupgrade service(s)
+# systemctl list-timers --all
+
 # systemctl status nixos-upgrade.timer
 # systemctl status nixos-upgrade.service
 # journalctl -u nixos-upgrade.service

@@ -10,6 +10,12 @@
       ./hardware-configuration.nix
     ];
 
+  # Note to myself: use this lines of code to enable scanner drivers
+  hardware.sane = {
+    enable = true;
+    drivers.scanSnap.enable = true;
+  };
+
   # Bootloader.
   boot.loader = {
     systemd-boot.enable = true;
@@ -86,8 +92,8 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
-      # kdePackages.kcalc
-      # pkgs.btrfs-assistant
+      kdePackages.kcalc
+      pkgs.btrfs-assistant
       # pkgs.mpv
       # pkgs.fastfetch
       # pkgs.htop
@@ -163,13 +169,14 @@
     pandoc
     distrobox
     fwupd
+    btrfs-progs
     
     # I'll check later how (if) I want to install these packages
-    # btrfs-progs
     # direnv
     # #devenv
     # postgresql
     # ledger
+    # hledger
     # texliveFull
     # python313Full
     # python313Packages.pip
@@ -200,6 +207,12 @@
   # Enable flatpaks
   services.flatpak = {
     enable = true;
+  };
+
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "*-01,04,07,10-01 18:00:00";
+    fileSystems = [ "/" ];
   };
 
   # Enable gpg
