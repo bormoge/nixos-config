@@ -121,7 +121,8 @@
   nix.gc = {
     automatic = true;
     persistent = true;
-    dates = "Sun 14:00";
+    # dates = "Sun 14:00";
+    dates = "*-*-01 18:00:00";
     randomizedDelaySec = "45min";
     options = "--delete-older-than 7d";
   };
