@@ -170,10 +170,9 @@
     distrobox
     fwupd
     btrfs-progs
+    direnv
     
     # I'll check later how (if) I want to install these packages
-    # direnv
-    # #devenv
     # postgresql
     # ledger
     # hledger
@@ -197,7 +196,7 @@
   # started in user sessions.
   # programs.mtr.enable = true;
 
-  # List services that you want to enable:
+  # Services:
 
   # Enable the OpenSSH daemon.
   services.openssh = {
@@ -215,12 +214,25 @@
     fileSystems = [ "/" ];
   };
 
+  # Programs:
+
   # Enable gpg
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
   };
 
+  programs.direnv = {
+    enable = true;
+    package = pkgs.direnv;
+    silent = false;
+    loadInNixShell = true;
+    direnvrcExtra = "";
+    nix-direnv = {
+      enable = true;
+      package = pkgs.nix-direnv;
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

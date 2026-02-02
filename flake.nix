@@ -4,9 +4,13 @@
   inputs = {
     # nixos-25.11 branch
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }: {
+  outputs = inputs@{ self, nixpkgs, nix-flatpak, ... }: {
     # nixos is the hostname
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -19,13 +23,12 @@
               settings.experimental-features = [ "nix-command" "flakes" ];
             };
           }
-
           ./git.nix
-
           ./emacs.nix
-
           ./virtualization.nix
-
+          nix-flatpak.nixosModules.nix-flatpak
+          ./flatpak.nix
+          ./update-flake-lock.nix
         ];
     };
   };
