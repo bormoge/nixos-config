@@ -8,9 +8,13 @@
       url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-flatpak, ... }: {
+  outputs = inputs@{ self, nixpkgs, nix-flatpak, home-manager, ... }: {
     # nixos is the hostname
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -23,12 +27,25 @@
               settings.experimental-features = [ "nix-command" "flakes" ];
             };
           }
+
           ./git.nix
           ./emacs.nix
           ./virtualization.nix
           nix-flatpak.nixosModules.nix-flatpak
           ./flatpak.nix
           ./update-flake-lock.nix
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.gbm = ./home-manager/home.nix;
+            };
+
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
         ];
     };
   };
@@ -48,6 +65,9 @@
 
 ## Check autoupgrade service(s)
 # systemctl list-timers --all
+# systemctl list-units --all
+
+# nixos-upgrade, nix-gc, btrfs-scrub, update-flake-lock, flatpak-managed-install-timer
 
 # systemctl status nixos-upgrade.timer
 # systemctl status nixos-upgrade.service
