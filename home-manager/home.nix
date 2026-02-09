@@ -34,6 +34,10 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
+    pkgs.kdePackages.kate
+    pkgs.kdePackages.kcalc
+    pkgs.btrfs-assistant
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

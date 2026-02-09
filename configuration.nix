@@ -90,18 +90,15 @@
     isNormalUser = true;
     description = "gbm";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kdePackages.kate
-      kdePackages.kcalc
-      pkgs.btrfs-assistant
-      # pkgs.mpv
-      # pkgs.fastfetch
-      # pkgs.htop
-      # pkgs.btop
-      # pkgs.nvtopPackages.full
-      # pgadmin4
-      # thunderbird
-    ];
+    # packages = with pkgs; [
+    #   # pkgs.mpv
+    #   # pkgs.fastfetch
+    #   # pkgs.htop
+    #   # pkgs.btop
+    #   # pkgs.nvtopPackages.full
+    #   # pgadmin4
+    #   # thunderbird
+    # ];
   };
 
   # Install firefox.
@@ -132,7 +129,9 @@
     flake = inputs.self.outPath;
     persistent = true;
     flags = [
-      "--print-build-logs"
+      "--update-input"
+      "nixpkgs"
+      "--print-build-logs" # "-L"
     ];
     dates = "Sun 16:00";
     randomizedDelaySec = "45min";
