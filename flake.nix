@@ -33,7 +33,7 @@
           ./virtualization.nix
           nix-flatpak.nixosModules.nix-flatpak
           ./flatpak.nix
-          ./update-flake-lock.nix
+          # ./update-flake-lock.nix
 
           home-manager.nixosModules.home-manager
           {
