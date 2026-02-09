@@ -77,4 +77,43 @@
 
   # Let Home Manager install and manage itself.
   # programs.home-manager.enable = true;
+
+  ######################################################################################################################
+  ######################################################################################################################
+  ######################################################################################################################
+
+  # Programs & Services
+
+  programs.plasma = {
+    enable = true;
+    overrideConfig = false;
+
+    workspace = {
+      clickItemTo = "select";
+      lookAndFeel = "org.kde.breezedark.desktop";
+      # cursor.theme = "Bibata-Modern-Ice";
+      # iconTheme = "Papirus-Dark";
+      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/ScarletTree/contents/images_dark/5120x2880.png";
+    };
+
+    # hotkeys.commands."launch-konsole" = {
+    #   name = "Launch Konsole";
+    #   key = "Ctrl+Alt+T";
+    #   command = "konsole";
+    # };
+  };
+
+  # programs.direnv = {
+  #   enable = true;
+  #   enableBashIntegration = true;
+  #   # package = pkgs.direnv;
+  #   silent = false;
+  #   # loadInNixShell = true;
+  #   # direnvrcExtra = "";
+  #   nix-direnv = {
+  #     enable = true;
+  #     # package = pkgs.nix-direnv;
+  #   };
+  # };
+
 }

@@ -12,43 +12,56 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-
-  outputs = inputs@{ self, nixpkgs, nix-flatpak, home-manager, ... }: {
-    # nixos is the hostname
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules =
-        [
-          ./configuration.nix
-          {
-            nix = {
-              settings.experimental-features = [ "nix-command" "flakes" ];
-            };
-          }
-
-          ./git.nix
-          ./emacs.nix
-          ./virtualization.nix
-          nix-flatpak.nixosModules.nix-flatpak
-          ./flatpak.nix
-          # ./update-flake-lock.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.gbm = ./home-manager/home.nix;
-            };
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-        ];
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
   };
+
+  outputs = inputs@{ self, nixpkgs, nix-flatpak, home-manager, plasma-manager, ... }:
+  let
+    username = "gbm";
+    system = "x86_64-linux";
+  in
+    {
+      # nixos is the hostname
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        inherit system;
+
+        specialArgs = { inherit inputs; };
+        modules =
+          [
+
+            ./configuration.nix
+            {
+              nix = {
+                settings.experimental-features = [ "nix-command" "flakes" ];
+              };
+            }
+
+            ./git.nix
+            ./emacs.nix
+            ./virtualization.nix
+            nix-flatpak.nixosModules.nix-flatpak
+            ./flatpak.nix
+            # ./update-flake-lock.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+                users."${username}" = import ./home-manager/home.nix;
+              };
+
+              # Optionally, use home-manager.extraSpecialArgs to pass
+              # arguments to home.nix
+            }
+          ];
+      };
+    };
 }
 
 ### Quick guide / cheatsheet for myself
