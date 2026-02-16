@@ -124,23 +124,26 @@
     options = "--delete-older-than 7d";
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = inputs.self.outPath;
-    persistent = true;
-    flags = [
-      "--update-input"
-      "nixpkgs"
-      "--print-build-logs" # "-L"
-    ];
-    dates = "Sun 16:00";
-    randomizedDelaySec = "45min";
-    allowReboot = true;
-    rebootWindow = {
-      lower = "16:00";
-      upper = "19:00";
-    };
-  };
+  # I'm commenting this for now until I decide what to do with it.
+  # system.autoUpgrade = {
+  #   enable = true;
+  #   flake = "/etc/nixos/";
+  #   # flake = "/home/gbm/nixos/";
+  #   # flake = inputs.self.outPath;
+  #   persistent = true;
+  #   flags = [
+  #     "--update-input"
+  #     "nixpkgs"
+  #     "--print-build-logs" # "-L"
+  #   ];
+  #   dates = "Sun 16:00";
+  #   randomizedDelaySec = "45min";
+  #   allowReboot = true;
+  #   rebootWindow = {
+  #     lower = "16:00";
+  #     upper = "19:00";
+  #   };
+  # };
 
   # Limiting the maximum number of running jobs
   # nix = {

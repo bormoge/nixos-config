@@ -45,7 +45,6 @@
             ./virtualization.nix
             nix-flatpak.nixosModules.nix-flatpak
             ./flatpak.nix
-            # ./update-flake-lock.nix
 
             home-manager.nixosModules.home-manager
             {
@@ -80,7 +79,7 @@
 # systemctl list-timers --all
 # systemctl list-units --all
 
-# nixos-upgrade, nix-gc, btrfs-scrub, update-flake-lock, flatpak-managed-install-timer
+# nixos-upgrade, nix-gc, btrfs-scrub--, update-flake-lock, flatpak-managed-install-timer
 
 # systemctl status nixos-upgrade.timer
 # systemctl status nixos-upgrade.service
