@@ -10,10 +10,17 @@
       ./hardware-configuration.nix
     ];
 
-  # Note to myself: use this lines of code to enable scanner drivers
-  hardware.sane = {
-    enable = true;
-    drivers.scanSnap.enable = true;
+  # If you put this code in hardware-configuration.nix it will get overwritten.
+  hardware = {
+    # Enable scanner drivers
+    sane = {
+      enable = true;
+      drivers.scanSnap.enable = true;
+    };
+    # Enable hardware accelerated graphics drivers
+    graphics = {
+      enable = true;
+    };
   };
 
   # Bootloader.
@@ -91,13 +98,6 @@
     description = "gbm";
     extraGroups = [ "networkmanager" "wheel" ];
     # packages = with pkgs; [
-    #   # pkgs.mpv
-    #   # pkgs.fastfetch
-    #   # pkgs.htop
-    #   # pkgs.btop
-    #   # pkgs.nvtopPackages.full
-    #   # pgadmin4
-    #   # thunderbird
     # ];
   };
 
@@ -105,14 +105,19 @@
   programs.firefox.enable = true;
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # Optimise nix store during every build
-  nix.settings = {
-    auto-optimise-store = true;
-    # experimental-features = [ "nix-command" "flakes" ];
+  nixpkgs.config = {
+    allowUnfree = true;
+    # https://github.com/nix-community/home-manager/issues/2942
+    allowUnfreePredicate = _: true;
   };
-  # nix.settings.auto-optimise-store = true;
+
+  nix.settings = {
+    # Optimise nix store during every build
+    auto-optimise-store = true;
+
+    # Enable Flakes
+    experimental-features = [ "nix-command" "flakes" ];
+  };
 
   # Garbage collection automation
   nix.gc = {
@@ -152,9 +157,6 @@
   #   };
   # };
 
-  # Enable Flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -166,15 +168,10 @@
     # Emacs compiled using gtk flags
     emacs-pgtk
     flatpak
-    nixd
     gcc
     # Discount is a Markdown implementation
     # discount
-    pandoc
-    distrobox
     fwupd
-    btrfs-progs
-    direnv
     
     # I'll check later how (if) I want to install these packages
     # postgresql
@@ -194,17 +191,36 @@
   ];
 
   # Set the default editor to neovim
-  environment.variables.EDITOR = "neovim";
+  environment.variables.EDITOR = "nvim";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
+
+  # Enable common container config files in /etc/containers
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
   # Services:
 
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
+    # settings = {
+    #   # UseDns = true;
+    #   # PermitRootLogin = "no";
+    #   # PasswordAuthentication = false;
+    # };
   };
 
   # Enable flatpaks
@@ -218,6 +234,10 @@
     fileSystems = [ "/" ];
   };
 
+  services.emacs = {
+    enable = true;
+  };
+
   # Programs:
 
   # Enable gpg
@@ -226,15 +246,25 @@
     enableSSHSupport = true;
   };
 
-  programs.direnv = {
+  # programs.direnv = {
+  #   enable = true;
+  #   package = pkgs.direnv;
+  #   silent = false;
+  #   loadInNixShell = true;
+  #   direnvrcExtra = "";
+  #   nix-direnv = {
+  #     enable = true;
+  #     package = pkgs.nix-direnv;
+  #   };
+  # };
+
+  programs.git = {
     enable = true;
-    package = pkgs.direnv;
-    silent = false;
-    loadInNixShell = true;
-    direnvrcExtra = "";
-    nix-direnv = {
-      enable = true;
-      package = pkgs.nix-direnv;
+    lfs.enable = true;
+    config = {
+      init = {
+        defaultBranch = "main";
+      };
     };
   };
 

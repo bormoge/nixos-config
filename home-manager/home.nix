@@ -37,7 +37,27 @@
 
     pkgs.kdePackages.kate
     pkgs.kdePackages.kcalc
+    pkgs.kdePackages.filelight
     pkgs.btrfs-assistant
+    # It might actually be better to install nixfmt and nixd on a nix development environment.
+    pkgs.nixfmt
+    pkgs.nixd
+    pkgs.btrfs-assistant
+    pkgs.distrobox
+    pkgs.pandoc
+    pkgs.direnv
+
+    # I'll see if I install these packages.
+    # pkgs.mpv
+    # pkgs.fastfetch
+    # pkgs.htop
+    # pkgs.btop
+    # pkgs.iotop
+    # pkgs.iftop
+    # pkgs.nvtopPackages.full
+    # pgks.pgadmin4
+    # pgks.thunderbird
+    # pkgs.pciutils
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -103,17 +123,30 @@
     # };
   };
 
-  # programs.direnv = {
-  #   enable = true;
-  #   enableBashIntegration = true;
-  #   # package = pkgs.direnv;
-  #   silent = false;
-  #   # loadInNixShell = true;
-  #   # direnvrcExtra = "";
-  #   nix-direnv = {
-  #     enable = true;
-  #     # package = pkgs.nix-direnv;
-  #   };
-  # };
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    package = pkgs.direnv;
+    silent = false;
+    # loadInNixShell = true;
+    # direnvrcExtra = "";
+    nix-direnv = {
+      enable = true;
+      # package = pkgs.nix-direnv;
+    };
+    # https://github.com/direnv/direnv/wiki/Customizing-cache-location#human-readable-directories
+    stdlib = ''
+        : "''${XDG_CACHE_HOME:="''${HOME}/.cache"}"
+        declare -A direnv_layout_dirs
+        direnv_layout_dir() {
+            local hash path
+            echo "''${direnv_layout_dirs[$PWD]:=$(
+                hash="''$(sha1sum - <<< "$PWD" | head -c40)"
+                path="''${PWD//[^a-zA-Z0-9]/-}"
+                echo "''${XDG_CACHE_HOME}/direnv/layouts/''${hash}''${path}"
+            )}"
+        }
+      '';
+  };
 
 }

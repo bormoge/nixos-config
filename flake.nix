@@ -1,5 +1,5 @@
 {
-  description = "NixOS flake";
+  description = "bormoge's NixOS flake.";
 
   inputs = {
     # nixos-25.11 branch
@@ -30,19 +30,16 @@
         inherit system;
 
         specialArgs = { inherit inputs; };
+
         modules =
           [
-
             ./configuration.nix
-            {
-              nix = {
-                settings.experimental-features = [ "nix-command" "flakes" ];
-              };
-            }
-
-            ./git.nix
-            ./emacs.nix
-            ./virtualization.nix
+            # {
+            #   nix = {
+            #     settings.experimental-features = [ "nix-command" "flakes" ];
+            #   };
+            # }
+            
             nix-flatpak.nixosModules.nix-flatpak
             ./flatpak.nix
 
@@ -52,11 +49,11 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+                # Optionally, use home-manager.extraSpecialArgs to pass
+                # arguments to home.nix
+                # extraSpecialArgs = { inherit inputs; };
                 users."${username}" = import ./home-manager/home.nix;
               };
-
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
             }
           ];
       };
