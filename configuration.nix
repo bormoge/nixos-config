@@ -2,13 +2,20 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    # To generate a new hardware-configuration.nix use
+    # sudo nixos-generate-config --dir .
+    ./hardware-configuration.nix
+  ];
 
   # If you put this code in hardware-configuration.nix it will get overwritten.
   hardware = {
@@ -73,9 +80,19 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
+  security = {
+    # Enable sudo.
+    sudo = {
+      enable = true;
+    };
+    # PipeWire (and PulseAudio) use this to acquire realtime priority.
+    rtkit = {
+      enable = true;
+    };
+  };
+
+  # Enable sound with PipeWire.
   services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -93,12 +110,21 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.gbm = {
-    isNormalUser = true;
-    description = "gbm";
-    extraGroups = [ "networkmanager" "wheel" ];
-    # packages = with pkgs; [
-    # ];
+  users = {
+    users = {
+      gbm = {
+        isNormalUser = true;
+        description = "gbm";
+        extraGroups = [
+          "networkmanager"
+          "wheel"
+        ];
+        # packages = with pkgs; [
+        # ];
+        # openssh.authorizedKeys.keys = [
+        # ];
+      };
+    };
   };
 
   # Install firefox.
@@ -111,22 +137,30 @@
     allowUnfreePredicate = _: true;
   };
 
-  nix.settings = {
-    # Optimise nix store during every build
-    auto-optimise-store = true;
+  nix = {
+    settings = {
+      # Optimise nix store during every build
+      auto-optimise-store = true;
 
-    # Enable Flakes
-    experimental-features = [ "nix-command" "flakes" ];
-  };
+      # Enable Flakes
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
-  # Garbage collection automation
-  nix.gc = {
-    automatic = true;
-    persistent = true;
-    # dates = "Sun 14:00";
-    dates = "*-*-01 18:00:00";
-    randomizedDelaySec = "45min";
-    options = "--delete-older-than 7d";
+      # Limit (or not) the number of jobs
+      max-jobs = "auto"; # e.g. 8
+    };
+
+    # Automate garbage collection
+    gc = {
+      automatic = true;
+      persistent = true;
+      # dates = "Sun 14:00";
+      dates = "*-*-01 18:00:00";
+      randomizedDelaySec = "45min";
+      options = "--delete-older-than 7d";
+    };
   };
 
   # I'm commenting this for now until I decide what to do with it.
@@ -150,13 +184,6 @@
   #   };
   # };
 
-  # Limiting the maximum number of running jobs
-  # nix = {
-  #   settings = {
-  #     max-jobs = 8;
-  #   };
-  # };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -172,7 +199,7 @@
     # Discount is a Markdown implementation
     # discount
     fwupd
-    
+
     # I'll check later how (if) I want to install these packages
     # postgresql
     # ledger
@@ -197,9 +224,12 @@
   # started in user sessions.
   # programs.mtr.enable = true;
 
-  # Enable common container config files in /etc/containers
-  virtualisation.containers.enable = true;
   virtualisation = {
+    # Enable common container config files in /etc/containers
+    containers = {
+      enable = true;
+    };
+
     podman = {
       enable = true;
 
@@ -281,5 +311,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
+
+  # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
 
 }

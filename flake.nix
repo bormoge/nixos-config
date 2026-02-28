@@ -3,7 +3,9 @@
 
   inputs = {
     # nixos-25.11 branch
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixos-25.11";
+    };
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
       #inputs.nixpkgs.follows = "nixpkgs";
@@ -19,11 +21,19 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-flatpak, home-manager, plasma-manager, ... }:
-  let
-    username = "gbm";
-    system = "x86_64-linux";
-  in
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nix-flatpak,
+      home-manager,
+      plasma-manager,
+      ...
+    }:
+    let
+      username = "gbm";
+      system = "x86_64-linux";
+    in
     {
       # nixos is the hostname
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -31,31 +41,30 @@
 
         specialArgs = { inherit inputs; };
 
-        modules =
-          [
-            ./configuration.nix
-            # {
-            #   nix = {
-            #     settings.experimental-features = [ "nix-command" "flakes" ];
-            #   };
-            # }
-            
-            nix-flatpak.nixosModules.nix-flatpak
-            ./flatpak.nix
+        modules = [
+          ./configuration.nix
+          # {
+          #   nix = {
+          #     settings.experimental-features = [ "nix-command" "flakes" ];
+          #   };
+          # }
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-                # Optionally, use home-manager.extraSpecialArgs to pass
-                # arguments to home.nix
-                # extraSpecialArgs = { inherit inputs; };
-                users."${username}" = import ./home-manager/home.nix;
-              };
-            }
-          ];
+          nix-flatpak.nixosModules.nix-flatpak
+          ./flatpak.nix
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+              # Optionally, use home-manager.extraSpecialArgs to pass
+              # arguments to home.nix
+              # extraSpecialArgs = { inherit inputs; };
+              users."${username}" = import ./home-manager/home.nix;
+            };
+          }
+        ];
       };
     };
 }

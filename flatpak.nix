@@ -1,12 +1,19 @@
-{ config, pkgs, nix-flatpak, ... }:
+{
+  config,
+  pkgs,
+  nix-flatpak,
+  ...
+}:
 
 {
   services.flatpak = {
     enable = true;
-    remotes = [{
-      name = "flathub";
-      location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-    }];
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
     packages = [
       "com.bitwarden.desktop"
       "com.github.muriloventuroso.pdftricks"
@@ -22,6 +29,7 @@
       "org.mozilla.Thunderbird"
       "org.onlyoffice.desktopeditors"
       "org.videolan.VLC"
+      "com.valvesoftware.Steam"
     ];
     update.auto = {
       enable = true;
