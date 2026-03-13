@@ -39,13 +39,12 @@
     pkgs.kdePackages.kcalc
     pkgs.kdePackages.filelight
     pkgs.btrfs-assistant
-    # It might actually be better to install nixfmt and nixd on a nix development environment.
-    pkgs.nixfmt
-    pkgs.nixd
-    pkgs.btrfs-assistant
     pkgs.distrobox
     pkgs.pandoc
     pkgs.direnv
+    pkgs.nix-direnv
+    pkgs.unzip
+    pkgs.aspell
 
     # I'll see if I install these packages.
     # pkgs.mpv
