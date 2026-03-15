@@ -27,6 +27,7 @@
     # Enable hardware accelerated graphics drivers
     graphics = {
       enable = true;
+      enable32Bit = true;
     };
   };
 
