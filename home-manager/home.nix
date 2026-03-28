@@ -45,6 +45,8 @@
     pkgs.nix-direnv
     pkgs.unzip
     pkgs.aspell
+    pkgs.aspellDicts.en
+    pkgs.aspellDicts.es
 
     # I'll see if I install these packages.
     # pkgs.mpv
@@ -144,6 +146,31 @@
               path="''${PWD//[^a-zA-Z0-9]/-}"
               echo "''${XDG_CACHE_HOME}/direnv/layouts/''${hash}''${path}"
           )}"
+      }
+      layout_uv() {
+        if [[ -d ".venv" ]]; then
+          VIRTUAL_ENV="''$(pwd)/.venv"
+        fi
+
+        if [[ -z ''$VIRTUAL_ENV || ! -d ''$VIRTUAL_ENV ]]; then
+          if [[ ! -f "pyproject.toml" ]]; then
+            log_status "No uv project exists. Executing \`uv init\` to create one."
+            uv init --no-readme
+            rm main.py
+            uv venv
+          else
+            uv sync
+          fi
+          VIRTUAL_ENV="''$(pwd)/.venv"
+        fi
+
+        if [ -d ".venv/bin" ]; then
+          PATH_add .venv/bin
+        elif [ -d ".venv/Scripts" ]; then
+          PATH_add .venv/Scripts
+        fi
+        export UV_ACTIVE=1 # or VENV_ACTIVE=1
+        export VIRTUAL_ENV
       }
     '';
   };
