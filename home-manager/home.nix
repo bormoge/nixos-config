@@ -38,6 +38,7 @@
     pkgs.kdePackages.kate
     pkgs.kdePackages.kcalc
     pkgs.kdePackages.filelight
+    # pkgs.kdePackages.plasma-login-manager
     pkgs.btrfs-assistant
     pkgs.distrobox
     pkgs.pandoc
