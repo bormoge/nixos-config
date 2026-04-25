@@ -19,6 +19,12 @@
 
   # If you put this code in hardware-configuration.nix it will get overwritten.
   hardware = {
+    # Enable all firmware
+    # enableAllFirmware = true;
+
+    # Enable all hardware
+    # enableAllHardware = true;
+
     # Enable scanner drivers
     sane = {
       enable = true;
@@ -40,7 +46,10 @@
     };
     # Use latest kernel.
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "kvm-amd" "ntsync" ];
+    kernelModules = [
+      "kvm-amd"
+      "ntsync"
+    ];
   };
 
   networking.hostName = "nixos"; # Define your hostname.

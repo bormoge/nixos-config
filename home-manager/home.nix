@@ -48,6 +48,8 @@
     pkgs.aspell
     pkgs.aspellDicts.en
     pkgs.aspellDicts.es
+    pkgs.tree
+    pkgs.fzf
 
     # I'll see if I install these packages.
     # pkgs.mpv
@@ -174,6 +176,12 @@
         export VIRTUAL_ENV
       }
     '';
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+    package = pkgs.fzf;
   };
 
 }
