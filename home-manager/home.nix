@@ -17,7 +17,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -35,21 +35,26 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
-    pkgs.kdePackages.kate
-    pkgs.kdePackages.kcalc
-    pkgs.kdePackages.filelight
+    kdePackages.kate
+    kdePackages.kate
+    kdePackages.kcalc
+    kdePackages.filelight
     # pkgs.kdePackages.plasma-login-manager
-    pkgs.btrfs-assistant
-    pkgs.distrobox
-    pkgs.pandoc
-    pkgs.direnv
-    pkgs.nix-direnv
-    pkgs.unzip
-    pkgs.aspell
-    pkgs.aspellDicts.en
-    pkgs.aspellDicts.es
-    pkgs.tree
-    pkgs.fzf
+    btrfs-assistant
+    distrobox
+    pandoc
+    direnv
+    nix-direnv
+    unzip
+    aspell
+    aspellDicts.en
+    aspellDicts.es
+    tree
+    fzf
+    hunspell
+    hunspellDicts.en_US
+    hunspellDicts.es_MX
+    yt-dlp
 
     # I'll see if I install these packages.
     # pkgs.mpv

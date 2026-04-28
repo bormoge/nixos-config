@@ -160,6 +160,11 @@
         "flakes"
       ];
 
+      # Enable the nix pipe operator
+      # extra-experimental-features = [
+      #   "pipe-operators"
+      # ];
+
       # Limit (or not) the number of jobs
       max-jobs = "auto"; # e.g. 8
     };
