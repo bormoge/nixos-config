@@ -209,13 +209,10 @@
     neovim
     wget
     git
-    # Emacs compiled using gtk flags
-    emacs-pgtk
     flatpak
-    gcc
+    fwupd
     # Discount is a Markdown implementation
     # discount
-    fwupd
 
     # I'll check later how (if) I want to install these packages
     # postgresql
@@ -275,14 +272,11 @@
     enable = true;
   };
 
+  # Enable automatic btrfs scrubbing
   services.btrfs.autoScrub = {
     enable = true;
     interval = "*-01,04,07,10-01 18:00:00";
     fileSystems = [ "/" ];
-  };
-
-  services.emacs = {
-    enable = true;
   };
 
   # Programs:
@@ -292,30 +286,6 @@
     enable = true;
     enableSSHSupport = true;
   };
-
-  # programs.direnv = {
-  #   enable = true;
-  #   package = pkgs.direnv;
-  #   silent = false;
-  #   loadInNixShell = true;
-  #   nix-direnv = {
-  #     enable = true;
-  #     package = pkgs.nix-direnv;
-  #   };
-  #   enableBashIntegration = true;
-  #   direnvrcExtra = ''
-  #     : "''${XDG_CACHE_HOME:="''${HOME}/.cache"}"
-  #     declare -A direnv_layout_dirs
-  #     direnv_layout_dir() {
-  #         local hash path
-  #         echo "''${direnv_layout_dirs[$PWD]:=$(
-  #             hash="''$(sha1sum - <<< "$PWD" | head -c40)"
-  #             path="''${PWD//[^a-zA-Z0-9]/-}"
-  #             echo "''${XDG_CACHE_HOME}/direnv/layouts/''${hash}''${path}"
-  #         )}"
-  #     }
-  #   '';
-  # };
 
   programs.git = {
     enable = true;

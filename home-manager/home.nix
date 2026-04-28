@@ -132,6 +132,12 @@
     # };
   };
 
+  programs.emacs = {
+    enable = true;
+    # Emacs compiled using gtk flags
+    package = pkgs.emacs-pgtk;
+  };
+
   programs.direnv = {
     enable = true;
     enableBashIntegration = true;
