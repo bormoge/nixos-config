@@ -219,8 +219,6 @@
     # ledger
     # hledger
     # texliveFull
-    # python313Full
-    # python313Packages.pip
     # rustup
     # jdk
     # beam27Packages.erlang

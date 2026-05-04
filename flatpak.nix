@@ -30,6 +30,7 @@
       "org.onlyoffice.desktopeditors"
       "org.videolan.VLC"
       "com.valvesoftware.Steam"
+      "org.fedoraproject.MediaWriter"
     ];
     update.auto = {
       enable = true;

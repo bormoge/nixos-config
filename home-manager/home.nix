@@ -55,6 +55,7 @@
     hunspellDicts.en_US
     hunspellDicts.es_MX
     yt-dlp
+    curl
 
     # I'll see if I install these packages.
     # pkgs.mpv
