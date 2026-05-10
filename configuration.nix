@@ -211,22 +211,6 @@
     git
     flatpak
     fwupd
-    # Discount is a Markdown implementation
-    # discount
-
-    # I'll check later how (if) I want to install these packages
-    # postgresql
-    # ledger
-    # hledger
-    # texliveFull
-    # rustup
-    # jdk
-    # beam27Packages.erlang
-    # beam27Packages.elixir
-    # clojure
-    # nodejs_22
-    # typescript
-    # gnumake
   ];
 
   # Set the default editor to neovim

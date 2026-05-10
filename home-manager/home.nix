@@ -35,39 +35,78 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+    # KDE
     kdePackages.kate
     kdePackages.kate
     kdePackages.kcalc
     kdePackages.filelight
-    # pkgs.kdePackages.plasma-login-manager
-    btrfs-assistant
+    # kdePackages.plasma-login-manager
+
+    # Containers
     distrobox
-    pandoc
+
+    # Dependency management
     direnv
     nix-direnv
-    unzip
+
+    # File exploration
+    tree
+    fzf
+
+    # Dictionaries
     aspell
     aspellDicts.en
     aspellDicts.es
-    tree
-    fzf
     hunspell
     hunspellDicts.en_US
     hunspellDicts.es_MX
-    yt-dlp
+
+    # HTTP
     curl
 
-    # I'll see if I install these packages.
-    # pkgs.mpv
-    # pkgs.fastfetch
-    # pkgs.htop
-    # pkgs.btop
-    # pkgs.iotop
-    # pkgs.iftop
-    # pkgs.nvtopPackages.full
-    # pgks.pgadmin4
-    # pgks.thunderbird
-    # pkgs.pciutils
+    # Disk management
+    gparted
+    gnome-disk-utility
+
+    # Fonts
+    julia-mono
+    nerd-fonts.symbols-only
+
+    # Terminals
+    kitty
+
+    # Miscellaneous utilities
+    yt-dlp
+    pandoc
+    unzip
+    btrfs-assistant
+
+    # I'll check later how (if) I want to install these packages
+    # mpv
+    # fastfetch
+    # htop
+    # btop
+    # iotop
+    # iftop
+    # nvtopPackages.full
+    # pgadmin4
+    # thunderbird
+    # pciutils
+    # foot
+    # alacritty
+    # ledger
+    # hledger
+    # postgresql
+    # texliveFull
+    # rustup
+    # jdk
+    # beam27Packages.erlang
+    # beam27Packages.elixir
+    # clojure
+    # nodejs_22
+    # typescript
+    # gnumake
+    # discount # discount is a Markdown implementation
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
