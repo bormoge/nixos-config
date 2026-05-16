@@ -31,6 +31,7 @@
       "org.videolan.VLC"
       "com.valvesoftware.Steam"
       "org.fedoraproject.MediaWriter"
+      "org.zealdocs.Zeal"
     ];
     update.auto = {
       enable = true;

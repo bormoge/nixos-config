@@ -74,18 +74,22 @@
 
     # Terminals
     kitty
+    kitty-themes
+
+    # Filesystem
+    btrfs-assistant
+    btrfs-progs
 
     # Miscellaneous utilities
     yt-dlp
     pandoc
     unzip
-    btrfs-assistant
+    fastfetch
+    btop
 
     # I'll check later how (if) I want to install these packages
     # mpv
-    # fastfetch
     # htop
-    # btop
     # iotop
     # iftop
     # nvtopPackages.full
@@ -233,6 +237,32 @@
     enable = true;
     enableBashIntegration = true;
     package = pkgs.fzf;
+  };
+
+  programs.kitty = {
+    enable = true;
+    enableGitIntegration = true;
+    package = pkgs.kitty;
+    # https://github.com/kovidgoyal/kitty-themes/tree/master/themes
+    # autoThemeFiles = {
+    #   light = "leaf_light";
+    #   dark = "adwaita_darker"; # Tomorrow_Night
+    #   noPreference = "bliss";
+    # };
+    extraConfig = ''
+      remember_window_size yes
+      scrollback_lines 5000
+      confirm_os_window_close 0
+      tab_bar_style powerline
+      tab_powerline_style angled
+      startup_session ~/.config/kitty/sessions/max.conf
+    ''; # max.conf contains os_window_state maximized
+    font = {
+      package = pkgs.julia-mono;
+      name = "JuliaMono Light";
+      size = 18;
+    };
+    themeFile = "adwaita_darker";
   };
 
 }
