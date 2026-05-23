@@ -86,6 +86,7 @@
     unzip
     fastfetch
     btop
+    gnome-boxes
 
     # I'll check later how (if) I want to install these packages
     # mpv

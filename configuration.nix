@@ -130,6 +130,7 @@
         extraGroups = [
           "networkmanager"
           "wheel"
+          "libvirtd" # Enable local user access to libvirt (virt-manager, gnome-boxes, ...)
         ];
         # packages = with pkgs; [
         # ];
@@ -211,6 +212,7 @@
     git
     flatpak
     fwupd
+    qemu_full
   ];
 
   # Set the default editor to neovim
@@ -234,6 +236,20 @@
 
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
+    };
+
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_full;
+        # Enable TPM emulation
+        swtpm.enable = true;
+      };
+    };
+
+    # Enable USB redirection
+    spiceUSBRedirection = {
+      enable = true;
     };
   };
 
