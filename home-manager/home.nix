@@ -251,13 +251,27 @@
     #   noPreference = "bliss";
     # };
     extraConfig = ''
+      # Remember the window size
       remember_window_size yes
+
+      # Max. amount of visible lines
       scrollback_lines 5000
+
+      # Don't ask if I want to close kitty
       confirm_os_window_close 0
+
+      # Tab bar
       tab_bar_style powerline
       tab_powerline_style angled
+
+      # Transparency
+      background_opacity 0.75
+      # background_blur 15
+      # hide_window_decorations titlebar-only
+
+      # Maximize the window (max.conf contains os_window_state maximized)
       startup_session ~/.config/kitty/sessions/max.conf
-    ''; # max.conf contains os_window_state maximized
+    '';
     font = {
       package = pkgs.julia-mono;
       name = "JuliaMono Light";

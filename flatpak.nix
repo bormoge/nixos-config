@@ -31,11 +31,13 @@
       "org.kde.krita"
       "org.keepassxc.KeePassXC"
       "org.libreoffice.LibreOffice"
-      "org.mozilla.Thunderbird"
+      "org.mozilla.thunderbird_esr"
       "org.onlyoffice.desktopeditors"
       "org.pgadmin.pgadmin4"
       "org.videolan.VLC"
       "org.zealdocs.Zeal"
+      # "io.github.hkdb.Aerion"
+      # "it.fabiodistasio.AntaresSQL"
     ];
     update.auto = {
       enable = true;
