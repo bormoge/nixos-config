@@ -71,6 +71,8 @@
     # Fonts
     julia-mono
     nerd-fonts.symbols-only
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.ubuntu-sans
 
     # Terminals
     kitty
@@ -273,8 +275,8 @@
       startup_session ~/.config/kitty/sessions/max.conf
     '';
     font = {
-      package = pkgs.julia-mono;
-      name = "JuliaMono Light";
+      package = pkgs.nerd-fonts.ubuntu-sans;
+      name = "UbuntuSansMono Nerd Font Mono";
       size = 18;
     };
     themeFile = "adwaita_darker";

@@ -30,11 +30,15 @@
       enable = true;
       drivers.scanSnap.enable = true;
     };
+
     # Enable hardware accelerated graphics drivers
     graphics = {
       enable = true;
       enable32Bit = true;
     };
+
+    # Gracefully spin-down external storage during shutdown
+    # usbStorage.manageShutdown = true;
   };
 
   # Bootloader.
@@ -44,12 +48,16 @@
       systemd-boot.configurationLimit = 10; # You should set this so generations are referenced, which avoids them being gc'd
       efi.canTouchEfiVariables = true;
     };
+
     # Use latest kernel.
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [
       "kvm-amd"
       "ntsync"
     ];
+
+    # Clean /tmp on boot
+    # tmp.cleanOnBoot = true;
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -184,9 +192,9 @@
   # I'm commenting this for now until I decide what to do with it.
   # system.autoUpgrade = {
   #   enable = true;
-  #   flake = "/etc/nixos/";
+  #   # flake = "/etc/nixos/";
   #   # flake = "/home/gbm/nixos/";
-  #   # flake = inputs.self.outPath;
+  #   flake = inputs.self.outPath;
   #   persistent = true;
   #   flags = [
   #     "--update-input"
@@ -230,6 +238,9 @@
 
     podman = {
       enable = true;
+
+      # Periodically prune Podman resources
+      autoPrune.enable = true;
 
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
