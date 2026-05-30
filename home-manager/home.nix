@@ -42,7 +42,7 @@
     kdePackages.filelight
     # kdePackages.plasma-login-manager
 
-    # Containers
+    # Containers / container-adjacent packages
     distrobox
 
     # Dependency management
@@ -69,10 +69,16 @@
     gnome-disk-utility
 
     # Fonts
+    ## Microsoft fonts
+    corefonts
+    ## My favorite fonts
     julia-mono
+    ## Required for emacs to display nerd symbols
     nerd-fonts.symbols-only
-    nerd-fonts.jetbrains-mono
+    ## Required for emacs -nw to display nerd symbols
     nerd-fonts.ubuntu-sans
+    ## These are just neat
+    nerd-fonts.jetbrains-mono
 
     # Terminals
     kitty
@@ -81,6 +87,9 @@
     # Filesystem
     btrfs-assistant
     btrfs-progs
+
+    # Editors
+    neovim-unwrapped
 
     # Miscellaneous utilities
     yt-dlp
@@ -183,6 +192,13 @@
     enable = true;
     # Emacs compiled using gtk flags
     package = pkgs.emacs-pgtk;
+  };
+
+  programs.neovim = {
+    enable = true;
+    package = pkgs.neovim-unwrapped; # default: neovim-unwrapped
+    defaultEditor = true;
+    # waylandSupport = true;
   };
 
   programs.direnv = {
