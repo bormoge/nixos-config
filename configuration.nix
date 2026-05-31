@@ -85,8 +85,14 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+
+  # Enable the new Plasma Login Manager (PLM), fork of SDDM
+  services.displayManager = {
+    sddm.enable = false;
+    plasma-login-manager.enable = true;
+    # autoLogin.user = "gbm";
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {

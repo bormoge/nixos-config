@@ -40,7 +40,6 @@
     kdePackages.kate
     kdePackages.kcalc
     kdePackages.filelight
-    # kdePackages.plasma-login-manager
 
     # Containers / container-adjacent packages
     distrobox
@@ -198,7 +197,10 @@
     enable = true;
     package = pkgs.neovim-unwrapped; # default: neovim-unwrapped
     defaultEditor = true;
-    # waylandSupport = true;
+    withNodeJs = false;
+    withPython3 = false;
+    withRuby = false;
+    waylandSupport = true;
   };
 
   programs.direnv = {
