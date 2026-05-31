@@ -2,16 +2,16 @@
   description = "bormoge's NixOS flake.";
 
   inputs = {
-    # nixos-25.11 branch
+    # nixos-26.05 branch
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-25.11";
+      url = "github:NixOS/nixpkgs/nixos-26.05";
     };
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
