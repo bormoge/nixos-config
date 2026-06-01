@@ -29,6 +29,7 @@
       "org.kde.kdenlive"
       "org.kde.kontrast"
       "org.kde.krita"
+      "org.kde.kweather"
       "org.keepassxc.KeePassXC"
       "org.libreoffice.LibreOffice"
       "org.mozilla.thunderbird_esr"
@@ -38,6 +39,9 @@
       "org.zealdocs.Zeal"
       # "io.github.hkdb.Aerion"
       # "it.fabiodistasio.AntaresSQL"
+      # "com.rtosta.zapzap"
+      # "com.ktechpit.whatsie"
+      # "io.missioncenter.MissionCenter"
     ];
     update.auto = {
       enable = true;

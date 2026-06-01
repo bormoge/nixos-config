@@ -78,6 +78,7 @@
     nerd-fonts.ubuntu-sans
     ## These are just neat
     nerd-fonts.jetbrains-mono
+    nerd-fonts.noto
 
     # Terminals
     kitty
