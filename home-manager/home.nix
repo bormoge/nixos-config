@@ -157,7 +157,7 @@
   #  /etc/profiles/per-user/gbm/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   # Let Home Manager install and manage itself.
@@ -299,6 +299,10 @@
       size = 18;
     };
     themeFile = "adwaita_darker";
+  };
+
+  fonts.fontconfig = {
+    enable = true;
   };
 
 }
