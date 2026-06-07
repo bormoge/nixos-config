@@ -64,7 +64,6 @@
     curl
 
     # Disk management
-    gparted
     gnome-disk-utility
 
     # Fonts
@@ -74,11 +73,14 @@
     julia-mono
     ## Required for emacs to display nerd symbols
     nerd-fonts.symbols-only
-    ## Required for emacs -nw to display nerd symbols
-    nerd-fonts.ubuntu-sans
+    ## My second favorite fonts. Required for emacs -nw to display nerd symbols
+    ioskeley-mono.normal-term-NF
     ## These are just neat
     nerd-fonts.jetbrains-mono
+    nerd-fonts.ubuntu-sans
+    nerd-fonts._0xproto
     nerd-fonts.noto
+    ioskeley-mono.normal-NF
 
     # Terminals
     kitty
@@ -268,9 +270,9 @@
     package = pkgs.kitty;
     # https://github.com/kovidgoyal/kitty-themes/tree/master/themes
     # autoThemeFiles = {
-    #   light = "leaf_light";
-    #   dark = "adwaita_darker"; # Tomorrow_Night
-    #   noPreference = "bliss";
+    #   light = "ayu_light";
+    #   dark = "GitHub_Dark"; # adwaita_darker, Eldritch-dark
+    #   noPreference = "GitHub_Dark";
     # };
     extraConfig = ''
       # Remember the window size
@@ -295,11 +297,11 @@
       startup_session ~/.config/kitty/sessions/max.conf
     '';
     font = {
-      package = pkgs.nerd-fonts.ubuntu-sans;
-      name = "UbuntuSansMono Nerd Font Mono";
+      package = pkgs.ioskeley-mono.normal-term-NF;
+      name = "IoskeleyMonoTerm Nerd Font Light";
       size = 18;
     };
-    themeFile = "adwaita_darker";
+    themeFile = "GitHub_Dark"; # adwaita_darker, Eldritch-dark
   };
 
   fonts.fontconfig = {

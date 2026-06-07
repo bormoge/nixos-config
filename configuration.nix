@@ -226,6 +226,7 @@
     flatpak
     fwupd
     qemu_full
+    gparted
   ];
 
   # Set the default editor to neovim
