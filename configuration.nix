@@ -274,11 +274,16 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    # settings = {
-    #   # UseDns = true;
-    #   # PermitRootLogin = "no";
-    #   # PasswordAuthentication = false;
-    # };
+    openFirewall = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+      AllowUsers = [ "gbm" ];
+      MaxAuthTries = 3;
+      PerSourcePenalties = "crash:3600s authfail:3600s max:86400s";
+      # UseDns = true;
+    };
   };
 
   # Enable flatpaks
@@ -296,10 +301,10 @@
   # Programs:
 
   # Enable gpg
-  programs.gnupg.agent = {
-    enable = true;
-    # enableSSHSupport = true;
-  };
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   # enableSSHSupport = true;
+  # };
 
   programs.git = {
     enable = true;

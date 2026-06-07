@@ -98,6 +98,7 @@
     fastfetch
     btop
     gnome-boxes
+    pinentry-all
 
     # I'll check later how (if) I want to install these packages
     # mpv
@@ -303,6 +304,52 @@
 
   fonts.fontconfig = {
     enable = true;
+  };
+
+  # Enable OpenSSH private key agent.
+  services.ssh-agent = {
+    enable = true;
+    package = pkgs.openssh;
+  };
+
+  # Enable SSH client configuration.
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    settings."*" = {
+      ForwardAgent = false;
+      AddKeysToAgent = "no";
+      Compression = false;
+      ServerAliveInterval = 0;
+      ServerAliveCountMax = 3;
+      HashKnownHosts = false;
+      UserKnownHostsFile = "~/.ssh/known_hosts";
+      ControlMaster = "no";
+      ControlPath = "~/.ssh/master-%r@%n:%p";
+      ControlPersist = "no";
+    };
+    package = pkgs.openssh;
+  };
+
+  # Enable GnuPG private key agent.
+  services.gpg-agent = {
+    enable = true;
+    enableBashIntegration = true;
+    enableSshSupport = false;
+    pinentry = {
+      package = pkgs.pinentry-all;
+      program = "pinentry-qt";
+    };
+    verbose = false;
+  };
+
+  # Enable GnuPG
+  programs.gpg = {
+    enable = true;
+    package = pkgs.gnupg;
+    homedir = "${config.home.homeDirectory}/.gnupg";
+    mutableKeys = true;
+    mutableTrust = true;
   };
 
 }
