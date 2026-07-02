@@ -154,9 +154,6 @@
     };
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
   # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
@@ -218,23 +215,21 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    bash
-    wget
-    git
-    flatpak
-    fwupd
-    qemu_full
-    gparted
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      bash
+      wget
+      git
+      flatpak
+      fwupd
+      qemu_full
+      gparted
+    ];
 
-  # Set the default editor to neovim
-  environment.variables.EDITOR = "nvim";
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
+    # Set the default editor to neovim
+    variables.EDITOR = "nvim";
+  };
 
   virtualisation = {
     # Enable common container config files in /etc/containers
@@ -272,50 +267,64 @@
 
   # Services:
 
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      PermitRootLogin = "no";
-      AllowUsers = [ "gbm" ];
-      MaxAuthTries = 3;
-      PerSourcePenalties = "crash:3600s authfail:3600s max:86400s";
-      # UseDns = true;
+  services = {
+    # Enable the OpenSSH daemon.
+    openssh = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+        AllowUsers = [ "gbm" ];
+        MaxAuthTries = 3;
+        PerSourcePenalties = "crash:3600s authfail:3600s max:86400s";
+        # UseDns = true;
+      };
     };
-  };
 
-  # Enable flatpaks
-  services.flatpak = {
-    enable = true;
-  };
+    # Enable flatpaks
+    flatpak = {
+      enable = true;
+    };
 
-  # Enable automatic btrfs scrubbing
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "*-01,04,07,10-01 18:00:00";
-    fileSystems = [ "/" ];
+    # Enable automatic btrfs scrubbing
+    btrfs = {
+      autoScrub = {
+        enable = true;
+        interval = "*-01,04,07,10-01 18:00:00";
+        fileSystems = [ "/" ];
+      };
+    };
   };
 
   # Programs:
 
-  # Enable gpg
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   # enableSSHSupport = true;
-  # };
+  programs = {
+    firefox = {
+      enable = true;
+    };
 
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-    # Note: check the config options at https://github.com/git/git/tree/master/Documentation
-    config = {
-      init = {
-        defaultBranch = "main";
+    git = {
+      enable = true;
+      lfs.enable = true;
+      # Note: check the config options at https://github.com/git/git/tree/master/Documentation
+      config = {
+        init = {
+          defaultBranch = "main";
+        };
       };
     };
+
+    # Enable gpg
+    # gnupg.agent = {
+    #   enable = true;
+    #   # enableSSHSupport = true;
+    # };
+
+    # Some programs need SUID wrappers, can be configured further or are
+    # started in user sessions.
+    # mtr.enable = true;
   };
 
   # Open ports in the firewall.
