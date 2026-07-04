@@ -80,6 +80,8 @@
     nerd-fonts.ubuntu-sans
     nerd-fonts._0xproto
     nerd-fonts.noto
+    nerd-fonts.lilex
+    nerd-fonts.roboto-mono
     ioskeley-mono.normal-NF
 
     # Terminals
