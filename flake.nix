@@ -32,7 +32,7 @@
     }:
     let
       username = "gbm";
-      system = "x86_64-linux";
+      system = [ "x86_64-linux" ];
     in
     {
       # nixos is the hostname
@@ -66,6 +66,28 @@
           }
         ];
       };
+
+      devShells = nixpkgs.lib.genAttrs system (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          default = pkgs.mkShell {
+            strictDeps = true;
+
+            nativeBuildInputs = with pkgs; [
+              nixfmt
+              nixd
+            ];
+
+            # shellHook = ''
+            #   nixfmt
+            #   nixd
+            # '';
+          };
+        }
+      );
     };
 }
 
