@@ -51,6 +51,7 @@
     # File exploration
     tree
     fzf
+    ripgrep
 
     # Dictionaries
     aspell
