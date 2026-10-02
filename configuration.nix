@@ -206,6 +206,7 @@
   #   ];
   #   dates = "Sun 16:00";
   #   randomizedDelaySec = "45min";
+  #   operation = "switch" # either "switch" or "boot"
   #   allowReboot = true;
   #   rebootWindow = {
   #     lower = "16:00";

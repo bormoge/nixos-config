@@ -60,6 +60,8 @@
     hunspell
     hunspellDicts.en_US
     hunspellDicts.es_MX
+    hyphenDicts.en_US
+    hyphenDicts.es_ES
 
     # HTTP
     curl
@@ -93,6 +95,10 @@
     btrfs-assistant
     btrfs-progs
 
+    # Office suites
+    onlyoffice-desktopeditors
+    libreoffice-qt
+
     # Editors
     neovim-unwrapped
 
@@ -104,6 +110,7 @@
     btop
     gnome-boxes
     pinentry-all
+    obs-studio
 
     # I'll check later how (if) I want to install these packages
     # mpv
