@@ -55,7 +55,7 @@
     ripgrep
 
     # Dictionaries
-    scowl
+    # scowl (seems to have conflicts with hunspellDicts.en_US)
     aspell
     aspellDicts.en
     aspellDicts.es
