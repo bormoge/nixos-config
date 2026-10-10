@@ -45,6 +45,7 @@
     distrobox
 
     # Dependency management
+    mise
     direnv
     nix-direnv
 
@@ -54,6 +55,7 @@
     ripgrep
 
     # Dictionaries
+    scowl
     aspell
     aspellDicts.en
     aspellDicts.es
@@ -101,6 +103,15 @@
 
     # Editors
     neovim-unwrapped
+
+    # Dotfile management
+    chezmoi
+
+    # Secrets management / Encryption
+    sops
+    age
+    keepassxc
+    libsodium
 
     # Miscellaneous utilities
     yt-dlp

@@ -317,6 +317,10 @@
       };
     };
 
+    kde-pim = {
+      enable = false;
+    };
+
     # Enable gpg
     # gnupg.agent = {
     #   enable = true;
