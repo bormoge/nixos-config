@@ -4,8 +4,9 @@
 
 {
   config,
-  pkgs,
   inputs,
+  pkgs,
+  username,
   ...
 }:
 
@@ -91,7 +92,7 @@
   services.displayManager = {
     sddm.enable = false;
     plasma-login-manager.enable = true;
-    # autoLogin.user = "gbm";
+    # autoLogin.user = username;
   };
 
   # Configure keymap in X11
@@ -138,9 +139,9 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
     users = {
-      gbm = {
+      ${username} = {
         isNormalUser = true;
-        description = "gbm";
+        description = username;
         extraGroups = [
           "networkmanager"
           "wheel"
@@ -196,7 +197,7 @@
   # system.autoUpgrade = {
   #   enable = true;
   #   # flake = "/etc/nixos/";
-  #   # flake = "/home/gbm/nixos/";
+  #   # flake = "/home/${username}/nixos/";
   #   flake = inputs.self.outPath;
   #   persistent = true;
   #   flags = [
@@ -277,7 +278,7 @@
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
-        AllowUsers = [ "gbm" ];
+        AllowUsers = [ username ];
         MaxAuthTries = 3;
         PerSourcePenalties = "crash:3600s authfail:3600s max:86400s";
         # UseDns = true;

@@ -39,7 +39,7 @@
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
 
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit username inputs; };
 
         modules = [
           ./configuration.nix
@@ -58,9 +58,11 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+              # backupFileExtension = "backup";
+
               # Optionally, use home-manager.extraSpecialArgs to pass
               # arguments to home.nix
-              # extraSpecialArgs = { inherit inputs; };
+              extraSpecialArgs = { inherit username; };
               users."${username}" = import ./home-manager/home.nix;
             };
           }

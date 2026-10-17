@@ -1,10 +1,15 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  username,
+  ...
+}:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "gbm";
-  home.homeDirectory = "/home/gbm";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -36,10 +41,12 @@
     # '')
 
     # KDE
+    kdePackages.filelight
     kdePackages.kate
     kdePackages.kate
     kdePackages.kcalc
-    kdePackages.filelight
+    kdePackages.kontrast
+    kdePackages.kweather
 
     # Containers / container-adjacent packages
     distrobox
