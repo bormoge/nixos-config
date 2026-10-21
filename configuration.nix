@@ -116,6 +116,14 @@
     rtkit = {
       enable = true;
     };
+
+    pki = {
+      caCertificateBlacklist = [
+        # https://emudhra.we-have-a-problem.com/
+        "Comodo AAA Services root"
+        "emSign ECC Root CA - G3"
+      ];
+    };
   };
 
   # Enable sound with PipeWire.
@@ -227,6 +235,7 @@
       fwupd
       qemu_full
       gparted
+      clamav
     ];
 
     # Set the default editor to neovim
@@ -296,6 +305,16 @@
         enable = true;
         interval = "*-01,04,07,10-01 18:00:00";
         fileSystems = [ "/" ];
+      };
+    };
+
+    # Enable clamav antivirus
+    clamav = {
+      daemon = {
+        enable = true;
+      };
+      updater = {
+        enable = true;
       };
     };
   };
