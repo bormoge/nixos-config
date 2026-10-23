@@ -29,7 +29,11 @@
     # Enable scanner drivers
     sane = {
       enable = true;
-      drivers.scanSnap.enable = true;
+      drivers = {
+        scanSnap = {
+          enable = true;
+        };
+      };
     };
 
     # Enable hardware accelerated graphics drivers
@@ -45,9 +49,16 @@
   # Bootloader.
   boot = {
     loader = {
-      systemd-boot.enable = true;
-      systemd-boot.configurationLimit = 10; # You should set this so generations are referenced, which avoids them being gc'd
-      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+
+        # You should set this so generations are referenced, which avoids them being gc'd
+        configurationLimit = 10;
+      };
+
+      efi = {
+        canTouchEfiVariables = true;
+      };
     };
 
     # Use latest kernel.
@@ -61,15 +72,19 @@
     # tmp.cleanOnBoot = true;
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking = {
+    hostName = "nixos"; # Define your hostname.
+    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    # Enable networking
+    networkmanager = {
+      enable = true;
+    };
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+    # Configure network proxy if necessary
+    # proxy.default = "http://user:password@proxy:port/";
+    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  };
 
   # Power management
   powerManagement.enable = true;
@@ -81,31 +96,45 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "es_MX.UTF-8";
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
   # Enable the KDE Plasma Desktop Environment.
-  services.desktopManager.plasma6.enable = true;
+  services.desktopManager = {
+    plasma6 = {
+      enable = true;
+    };
+  };
 
-  # Enable the new Plasma Login Manager (PLM), fork of SDDM
   services.displayManager = {
-    sddm.enable = false;
-    plasma-login-manager.enable = true;
+    sddm = {
+      enable = false;
+    };
+
+    # Enable the new Plasma Login Manager (PLM), fork of SDDM
+    plasma-login-manager = {
+      enable = true;
+    };
+
     # autoLogin.user = username;
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "latam";
-    variant = "";
+  services.xserver = {
+    # Enable the X11 windowing system.
+    # You can disable this if you're only using the Wayland session.
+    enable = true;
+
+    # Configure keymap in X11
+    xkb = {
+      layout = "latam";
+      variant = "";
+    };
   };
 
   # Configure console keymap
   console.keyMap = "la-latin1";
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+  };
 
   security = {
     # Enable sudo.
@@ -120,14 +149,23 @@
     pki = {
       caCertificateBlacklist = [
         # https://emudhra.we-have-a-problem.com/
+
+        # CVE-2026-111943
         "Comodo AAA Services root"
+        # https://hg-edge.mozilla.org/projects/nss/rev/26d38a0c3fb81e7fb2acedbaf4c42dd21dce0517
         "emSign ECC Root CA - G3"
+        # https://hg-edge.mozilla.org/projects/nss/rev/8159223c48ceeb1273a1915bca95a517294ab0e0
+        "emSign Root CA - C1"
+        "emSign ECC Root CA - C3"
       ];
     };
   };
 
+  services.pulseaudio = {
+    enable = false;
+  };
+
   # Enable sound with PipeWire.
-  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -252,13 +290,19 @@
       enable = true;
 
       # Periodically prune Podman resources
-      autoPrune.enable = true;
+      autoPrune = {
+        enable = true;
+      };
 
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
 
       # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
+      defaultNetwork = {
+        settings = {
+          dns_enabled = true;
+        };
+      };
     };
 
     libvirtd = {
@@ -266,7 +310,9 @@
       qemu = {
         package = pkgs.qemu_full;
         # Enable TPM emulation
-        swtpm.enable = true;
+        swtpm = {
+          enable = true;
+        };
       };
     };
 
@@ -295,9 +341,9 @@
     };
 
     # Enable flatpaks
-    flatpak = {
-      enable = true;
-    };
+    # flatpak = {
+    #   enable = true;
+    # };
 
     # Enable automatic btrfs scrubbing
     btrfs = {
@@ -328,7 +374,9 @@
 
     git = {
       enable = true;
-      lfs.enable = true;
+      lfs = {
+        enable = true;
+      };
       # Note: check the config options at https://github.com/git/git/tree/master/Documentation
       config = {
         init = {

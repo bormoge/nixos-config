@@ -7,7 +7,7 @@
       url = "github:NixOS/nixpkgs/nixos-26.05";
     };
     nix-flatpak = {
-      url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
+      url = "github:gmodena/nix-flatpak/?ref=latest";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
