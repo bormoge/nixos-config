@@ -108,6 +108,9 @@
     onlyoffice-desktopeditors
     libreoffice-qt
 
+    # Media players
+    mpv
+
     # Editors
     neovim-unwrapped
 
@@ -131,7 +134,6 @@
     obs-studio
 
     # I'll check later how (if) I want to install these packages
-    # mpv
     # htop
     # iotop
     # iftop
@@ -334,6 +336,33 @@
 
   fonts.fontconfig = {
     enable = true;
+  };
+
+  programs.mpv = {
+    enable = true;
+    package = pkgs.mpv;
+    config = {
+      cache-default = 4000000;
+      force-window = true;
+      profile = "high-quality";
+      ytdl-format = "bestvideo+bestaudio";
+      fs = "no";
+      # fullscreen = "no";
+      window-maximized = "yes";
+      volume-max = 200;
+      keep-open = "yes";
+      # loop-playlist = "inf";
+      # loop = "inf";
+    };
+    bindings = {
+      MOUSE_BTN3 = "add volume 5";
+      MOUSE_BTN4 = "add volume -5";
+      # WHEEL_DOWN
+      # WHEEL_UP
+    };
+    defaultProfiles = [
+      "high-quality"
+    ];
   };
 
   # Enable OpenSSH private key agent.
