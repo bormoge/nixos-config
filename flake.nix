@@ -42,7 +42,7 @@
         specialArgs = { inherit username inputs; };
 
         modules = [
-          ./configuration.nix
+          ./config/configuration.nix
           # {
           #   nix = {
           #     settings.experimental-features = [ "nix-command" "flakes" ];
@@ -50,7 +50,7 @@
           # }
 
           nix-flatpak.nixosModules.nix-flatpak
-          ./flatpak.nix
+          ./flatpak/flatpak.nix
 
           home-manager.nixosModules.home-manager
           {
@@ -78,6 +78,7 @@
             default = pkgs.mkShell {
               strictDeps = true;
 
+              # packages is an alias for nativeBuildInputs
               nativeBuildInputs = with pkgs; [
                 nixfmt
                 nixd
