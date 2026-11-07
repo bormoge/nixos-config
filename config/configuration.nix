@@ -40,6 +40,10 @@
     graphics = {
       enable = true;
       enable32Bit = true;
+      extraPackages = with pkgs; [
+        libva
+        libvdpau-va-gl
+      ];
     };
 
     # Gracefully spin-down external storage during shutdown
@@ -269,12 +273,13 @@
       # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       bash
       wget
-      git
+      gitFull # git
       flatpak
       fwupd
       qemu_full
       gparted
       clamav
+      ffmpeg-full
     ];
 
     # Set the default editor to neovim
@@ -350,7 +355,7 @@
     btrfs = {
       autoScrub = {
         enable = true;
-        interval = "*-01,04,07,10-01 18:00:00";
+        interval = "*-01,04,07,10-01 18:00:00"; # https://www.freedesktop.org/software/systemd/man/latest/systemd.time.html
         fileSystems = [ "/" ];
       };
     };
@@ -375,6 +380,7 @@
 
     git = {
       enable = true;
+      package = pkgs.gitFull;
       lfs = {
         enable = true;
       };

@@ -47,6 +47,7 @@
     kdePackages.kcalc
     kdePackages.kontrast
     kdePackages.kweather
+    kdePackages.plasma-workspace-wallpapers
 
     # Containers / container-adjacent packages
     distrobox
@@ -88,12 +89,12 @@
     ## My second favorite fonts. Required for emacs -nw to display nerd symbols
     ioskeley-mono.normal-term-NF
     ## These are just neat
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.ubuntu-sans
     nerd-fonts._0xproto
-    nerd-fonts.noto
+    nerd-fonts.jetbrains-mono
     nerd-fonts.lilex
+    nerd-fonts.noto
     nerd-fonts.roboto-mono
+    nerd-fonts.ubuntu-sans
     ioskeley-mono.normal-NF
 
     # Terminals
@@ -129,6 +130,7 @@
     unzip
     fastfetch
     btop
+    amdgpu_top
     gnome-boxes
     pinentry-all
     obs-studio
