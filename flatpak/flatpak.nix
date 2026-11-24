@@ -32,16 +32,12 @@
       "org.videolan.VLC"
       "org.zealdocs.Zeal"
       # "com.ktechpit.whatsie"
-      # "com.obsproject.Studio"
       # "com.rtosta.zapzap"
+      # "engineer.atlas.Nyxt"
       # "io.github.hkdb.Aerion"
       # "io.github.peazip.PeaZip"
       # "io.missioncenter.MissionCenter"
       # "it.fabiodistasio.AntaresSQL"
-      # "org.kde.kontrast"
-      # "org.kde.kweather"
-      # "org.libreoffice.LibreOffice"
-      # "org.onlyoffice.desktopeditors"
     ];
     update.auto = {
       enable = true;

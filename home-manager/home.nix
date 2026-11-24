@@ -46,6 +46,7 @@
     kdePackages.kate
     kdePackages.kcalc
     kdePackages.kontrast
+    kdePackages.ksshaskpass
     kdePackages.kweather
     kdePackages.plasma-workspace-wallpapers
 
@@ -134,6 +135,7 @@
     gnome-boxes
     pinentry-all
     obs-studio
+    imagemagickBig
 
     # I'll check later how (if) I want to install these packages
     # htop
